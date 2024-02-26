@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validation Form</title>
+  <script src="https://unpkg.com/vue@next"></script>
+<style>
+  body {
+    background-image:url(https://img.freepik.com/free-photo/abstract-digital-grid-black-background_53876-97647.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
+    background-size: 100% 100%;
+    max-width: 500px;
+    margin:auto;
+    padding: 80px;
+    font-size: xx-large;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 900;
+    
+}
+fieldset{
+    background-color: rgba(229, 235, 225, 0.903);
+}
+button{
+    background-color: rgb(186, 216, 208);
+    padding: 2px 50px;
+    border-color: black;
+    border-style: double;
+    border-radius: 5px;
+    font-size: large;
+    height: 30px;
+    font-weight: 900;
+}
+input{
+    width: 150px;
+    height: 30px;
+}
+    </style>
+</head>
+<body align = center>
+    
+<form>
+    <fieldset>
+        <h1><u>SIGN-UP</u></h1>
+  <div id="app">
+    <form @submit.prevent="submitForm">
+      <div>
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" v-model="formData.name" required><br>
+      </div>
+      <div>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" v-model="formData.email" required><br>
+      </div>
+      <div>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" v-model="formData.password" required><br>
+      </div>
+      <div>
+        <label for="confirmPassword">Confirm Password:</label><br>
+        <input type="password" id="confirmPassword" v-model="confirmPassword" required><br>
+      </div>
+      <div>
+        <label for="age">Age:</label><br>
+        <input type="number" id="age" v-model.number="formData.age" required><br>
+      </div>
+      <div>
+        <label for="phone">Phone:</label><br>
+        <input type="tel" id="phone" v-model="formData.phone" required><br>
+      </div>
+     
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+    </fieldset>
+</form>
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          formData: {
+            name: '',
+            email: '',
+            password: '',
+            age: null,
+            phone: ''
+          },
+          confirmPassword: '',
+          errors: []
+        }
+      },
+      methods: {
+        submitForm() {
+          this.errors = [];
+          if (!this.formData.name) this.errors.push("Name is required.");
+          if (!this.formData.email) this.errors.push("Email is required.");
+          if (!this.formData.password) this.errors.push("Password is required.");
+          if (this.formData.password !== this.confirmPassword) this.errors.push("Passwords do not match.");
+          if (!this.formData.age) this.errors.push("Age is required.");
+          if (!this.formData.phone) this.errors.push("Phone is required.");
+          if (this.errors.length === 0) {
+            // Form is valid, submit data or perform further actions
+            console.log("Form submitted successfully!");
+          }
+        }
+      }
+    });
+
+    app.mount('#app');
+  </script>
+</body>
+</html>
